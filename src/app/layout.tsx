@@ -11,6 +11,7 @@ const instrument = localFont({
 const jb = localFont({ src: "../fonts/JetBrainsMono-Variable.woff2", variable: "--font-jb", weight: "100 800", display: "swap" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://sukumard.vercel.app"),
   title: `${PROFILE.name} — ${PROFILE.role}`,
   description: PROFILE.resumeSummary.slice(0, 155) + "…",
   openGraph: { title: `${PROFILE.name} — ${PROFILE.role}`, description: PROFILE.headline, images: ["/og.jpg"], type: "website" },

@@ -26,8 +26,12 @@ const css = `
 .idi{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .9s var(--ease)}
 .idi.on{transform:rotateY(180deg)}
 @media(hover:hover){.idc:hover .idi{transform:rotateY(180deg)}}
-.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:24px;background:#fff;box-shadow:inset 0 0 0 1px var(--line),0 40px 80px -30px rgba(0,0,0,.28);overflow:hidden;display:flex;flex-direction:column}
-.back{transform:rotateY(180deg);padding:26px 24px;gap:10px}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:translateZ(.1px);border-radius:24px;background:#fff;box-shadow:inset 0 0 0 1px var(--line),0 40px 80px -30px rgba(0,0,0,.28);overflow:hidden;display:flex;flex-direction:column}
+.back{transform:rotateY(180deg) translateZ(.1px);padding:26px 24px;gap:10px}
+.ph,.ph img,.ph::before,.band,.bcode,.holo{backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.front,.back{transition:visibility 0s linear .45s}
+.idi.on .front{visibility:hidden}.idi:not(.on) .back{visibility:hidden}
+@media(hover:hover){.idc:hover .idi .front{visibility:hidden}.idc:hover .idi .back{visibility:visible}}
 .band{background:var(--ink);color:#fff;height:44px;display:grid;place-items:center;font-family:var(--font-jb),monospace;font-size:11px;letter-spacing:.3em}
 .ph{width:128px;height:156px;margin:18px auto 12px;border-radius:20px;padding:3px;background:linear-gradient(160deg,#e9e9e9,#8a8a8a);position:relative;flex:none}
 .ph::before{content:"";position:absolute;inset:-14px;border-radius:30px;background:radial-gradient(closest-side,rgba(0,0,0,.08),transparent);z-index:0}
@@ -101,7 +105,7 @@ export default function About() {
               <div className="idc" tabIndex={0} role="button" aria-pressed={flip} aria-label="Developer ID card. Press to flip."
                 onClick={() => setFlip((f) => !f)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setFlip((f) => !f); } }}>
                 <div className={`idi ${flip ? "on" : ""}`}>
-                  <div className="face">
+                  <div className="face front">
                     <div className="band">DEVELOPER ID</div>
                     <div className="ph">{/* eslint-disable-next-line @next/next/no-img-element */}<img src="/portrait-bust.webp" alt={`Portrait of ${PROFILE.name}`} width={480} height={600} /></div>
                     <p className="nm">{PROFILE.name}</p><p className="rl">{PROFILE.role}</p>
